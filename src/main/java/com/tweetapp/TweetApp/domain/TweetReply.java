@@ -6,6 +6,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,10 +23,9 @@ import lombok.Setter;
 public class TweetReply {
 	@Id
 	@Setter(value = AccessLevel.NONE)
-	private String Id;
+	private String id;
 	private String replyText;
 	private String tag;
 	private String username;
 	private Date postTime;
-
 }

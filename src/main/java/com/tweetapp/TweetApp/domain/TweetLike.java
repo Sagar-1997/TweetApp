@@ -1,33 +1,24 @@
 package com.tweetapp.TweetApp.domain;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Document(collection = "tweet_Likes")
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "Tweet")
-public class Tweet {
+public class TweetLike {
+	
 	@Id
 	private String id;
-	private String tweetText;
-	private String tag;
-	@DBRef
-	private User user;
-	private Date postTime;
-	@DBRef
-	private List<TweetLike> likes = new ArrayList<TweetLike>();
-	@DBRef
-	private List<TweetReply> replies= new ArrayList<TweetReply>();
+    private Date likeDate;
+    private String userName;
+    
 }

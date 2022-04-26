@@ -8,5 +8,5 @@ import com.tweetapp.TweetApp.domain.TweetReply;
 @Repository
 public interface ReplyRepository extends MongoRepository<TweetReply, String>{
     
-	TweetReply findByUsername(String username);
+	//TweetReply findByUsername(String username);
 }
