@@ -1,5 +1,12 @@
 package com.tweetapp.TweetApp.service;
 
-public class UserService {
+import java.util.List;
+
+import com.tweetapp.TweetApp.domain.User;
+
+public interface UserService {
+	
+	public List<User> getAllUsers();
+	public User getUser(String username);
 
 }
