@@ -2,14 +2,17 @@ package com.tweetapp.TweetApp.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tweetapp.TweetApp.domain.Tweet;
+import com.tweetapp.TweetApp.domain.TweetLike;
 import com.tweetapp.TweetApp.domain.TweetReply;
 import com.tweetapp.TweetApp.domain.User;
 import com.tweetapp.TweetApp.dto.tweet.TweetRequest;
+import com.tweetapp.TweetApp.repository.LikeRepository;
 import com.tweetapp.TweetApp.repository.ReplyRepository;
 import com.tweetapp.TweetApp.repository.TweetRepository;
 import com.tweetapp.TweetApp.repository.UserRepository;
@@ -24,6 +27,8 @@ public class TweetServiceImpl implements TweetService {
 	private UserRepository userRepository;
 	@Autowired
 	private ReplyRepository replyRepsitory;
+	@Autowired
+	private LikeRepository likeRepository;
 
 	@Override
 	public String postTweet(String username, Tweet tweet) {
@@ -72,6 +77,46 @@ public class TweetServiceImpl implements TweetService {
 		tweet.getReplies().add(tweetReply);
 		tweetRepository.save(tweet);
 		return "reply is added";
+	}
+
+	@Override
+	public String addLike(String username, String id) {
+		Tweet tweet = tweetRepository.findById(id).get();
+		TweetLike tweetLike= new TweetLike();
+    	tweetLike.setLikeDate(new Date());
+    	tweetLike.setTweetId(tweet.getId());
+    	tweetLike.setUserName(username);
+	    if(tweet.getLikes().size()>0)
+	    {
+	    	System.out.println(tweet.getLikes());
+	    	TweetLike tweetlike=null;
+	    	for(int i=0;i<tweet.getLikes().size();i++)
+	    	{
+	    		if(username.equals(tweet.getLikes().get(i).getUserName()))
+	    		{
+	    			tweetlike=tweet.getLikes().get(i);
+	    		}
+	    	}
+	    	if(tweetlike!=null)
+	    	{
+	    		System.out.println(tweetlike);
+		    	tweet.getLikes().remove(tweetlike);
+		    	System.out.println(tweet.getLikes());
+		    	likeRepository.deleteById(tweetlike.getId());
+	    	}
+	    	else
+	    	{
+	    		likeRepository.save(tweetLike);
+		    	tweet.getLikes().add(tweetLike);
+	    	}
+	    }
+	    else
+	    {
+	    	likeRepository.save(tweetLike);
+	    	tweet.getLikes().add(tweetLike);
+	    }
+		tweetRepository.save(tweet);
+		return "like is added";
 	}
 
 }

@@ -60,4 +60,10 @@ public class TweetController {
 	public ResponseEntity<String> deleteTweet(@PathVariable("id") String id) {
 		return ResponseEntity.ok().body(tweetMapper.deleteTweet(id));
 	}
+	
+	@PutMapping("/{username}/like/{id}")
+	public ResponseEntity<String> addLike(@PathVariable("username") String username,@PathVariable("id") String id)
+	{
+		return ResponseEntity.ok().body(tweetMapper.addLike(username,id));
+	}
 }

@@ -23,10 +23,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User getUser(String username) {
-		User user = userRepository.findByLoginId(username)
-				.orElseThrow(() -> new UserNotFoundException("User with username " + username + " is not found"));
-		return user;
+	public List<User> getUser(String username) {
+	    List<User> users = userRepository.findAllByLoginIdContaining(username);
+	    if(users.isEmpty() || users==null)
+	    {
+	    	throw new UserNotFoundException("Not found any matching user");
+	    }
+		return users;
 	}
 
 }

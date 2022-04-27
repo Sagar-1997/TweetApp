@@ -70,4 +70,8 @@ public class TweetMapper {
 		return tweetService.addReply(username,id,tweetRequest);
 	}
 
+	public String addLike(String username, String id) {
+		return tweetService.addLike(username,id);
+	}
+
 }

@@ -1,5 +1,6 @@
 package com.tweetapp.TweetApp.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -11,4 +12,6 @@ import com.tweetapp.TweetApp.domain.User;
 public interface UserRepository extends MongoRepository<User, String>{
     Optional<User> findByEmail(String email);
     Optional<User> findByLoginId(String loginId);
+    List<User> findAllByLoginIdContaining(String username);
+    
 }

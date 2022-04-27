@@ -27,7 +27,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/user/search/{username}")
-	public ResponseEntity<UserResponse> getUser(@PathVariable("username") String username) {
+	public ResponseEntity<List<UserResponse>> getUser(@PathVariable("username") String username) {
 		return ResponseEntity.ok().body(userMapper.getUser(username));
 	}
 	

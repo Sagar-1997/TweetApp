@@ -16,4 +16,6 @@ public interface TweetService {
 
 	public String addReply(String username, String id, TweetRequest tweetReplyRequest);
 
+	public String addLike(String username, String id);
+
 }

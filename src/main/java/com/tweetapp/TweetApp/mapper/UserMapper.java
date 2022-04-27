@@ -28,10 +28,10 @@ public class UserMapper {
 		return usersReponse;
 	}
 	
-	public UserResponse getUser(String username)
+	public List<UserResponse> getUser(String username)
 	{
-		User user = userService.getUser(username);
-		UserResponse userResponse = modelMapper.map(user,UserResponse.class);
-		return userResponse;
+		List<User> users = userService.getUser(username);
+		List<UserResponse> usersReponse = users.stream().map(user-> modelMapper.map(user, UserResponse.class)).collect(Collectors.toList());
+		return usersReponse;
 	}
 }

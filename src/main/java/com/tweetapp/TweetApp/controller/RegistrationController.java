@@ -31,9 +31,4 @@ public class RegistrationController {
 		String registerUser = authMapper.registerUser(registrationRequest, bindingResult);
 		return ResponseEntity.ok().body(registerUser);
 	}
-	@GetMapping("/test")
-	public User getTest()
-	{
-		return repo.findByEmail("R123@GMAIL.Com").get();
-	}
 }
