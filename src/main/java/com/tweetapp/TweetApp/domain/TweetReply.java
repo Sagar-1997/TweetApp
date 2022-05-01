@@ -1,5 +1,6 @@
 package com.tweetapp.TweetApp.domain;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
@@ -24,5 +25,5 @@ public class TweetReply {
 	private String replyText;
 	private String tag;
 	private String username;
-	private Date postTime;
+	private LocalDateTime postTime;
 }

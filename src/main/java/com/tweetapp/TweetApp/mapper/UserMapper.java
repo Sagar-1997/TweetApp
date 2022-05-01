@@ -34,9 +34,9 @@ public class UserMapper {
 		return usersReponse;
 	}
 
-	public List<UserResponse> getUser(String username) {
+	public List<UserResponse> getUsers(String username) {
 		log.info("inside getUser method of UserMapper");
-		List<User> users = userService.getUser(username);
+		List<User> users = userService.getUsers(username);
 		List<UserResponse> usersReponse = users.stream().map(user -> modelMapper.map(user, UserResponse.class))
 				.collect(Collectors.toList());
 		log.info("Converting Users list to UserReponse List =>{}",usersReponse);

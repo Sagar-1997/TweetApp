@@ -52,7 +52,7 @@ public class UserControllerTest {
 	{
 		List<UserResponse> userList = new ArrayList<UserResponse>();
 		userList.add(userReponse);
-		Mockito.when(userMapper.getUser("a@123")).thenReturn(userList);
+		Mockito.when(userMapper.getUsers("a@123")).thenReturn(userList);
 		ResponseEntity<List<UserResponse>> actual = userController.getUser("a@123");
 		assertEquals(userList, actual.getBody());
 	}

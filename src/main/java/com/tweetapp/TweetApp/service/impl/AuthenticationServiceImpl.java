@@ -91,6 +91,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		}
 		user.setPassword(passwordEncoder.encode(password));
 		user.setConfirmPassword(passwordEncoder.encode(confirmPassword));
+		userRepository.save(user);
 		log.info("password is changed for " + username);
 		return "Password for " + username + " is changed !!";
 	}

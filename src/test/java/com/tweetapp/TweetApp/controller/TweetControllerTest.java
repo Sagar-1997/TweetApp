@@ -2,6 +2,7 @@ package com.tweetapp.TweetApp.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -41,7 +42,7 @@ public class TweetControllerTest {
 		tweetResponse = new TweetResponse();
 		tweetResponse.setId("123");
 		tweetResponse.setLikes(new ArrayList<>());
-		tweetResponse.setPostTime(new Date());
+		tweetResponse.setPostTime(LocalDateTime.now());
 		tweetResponse.setReplies(new ArrayList<>());
 		tweetResponse.setTag("tag");
 		tweetResponse.setTweetText("tweet text");

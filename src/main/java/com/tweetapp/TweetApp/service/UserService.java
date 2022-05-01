@@ -8,6 +8,6 @@ public interface UserService {
 
 	public List<User> getAllUsers();
 
-	public List<User> getUser(String username);
+	public List<User> getUsers(String username);
 
 }

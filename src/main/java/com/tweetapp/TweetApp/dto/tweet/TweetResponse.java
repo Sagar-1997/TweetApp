@@ -1,5 +1,6 @@
 package com.tweetapp.TweetApp.dto.tweet;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class TweetResponse {
 	private String tweetText;
 	private String tag;
 	private String username;
-	private Date postTime;
+	private LocalDateTime postTime;
 	private List<TweetLikes> likes;
 	private List<TweetReply> replies;
 }

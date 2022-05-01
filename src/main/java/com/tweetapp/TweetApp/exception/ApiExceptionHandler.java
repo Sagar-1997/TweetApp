@@ -63,7 +63,7 @@ public class ApiExceptionHandler {
 	@ExceptionHandler(TweetNotFoundException.class)
 	public ResponseEntity<ExceptionResponse> handlerJwtTokenException(TweetNotFoundException tweetException) {
 		ExceptionResponse exceptionResponse = ExceptionResponse.builder().datetime(LocalDateTime.now())
-				.errorMessage(tweetException.getMessage()).status(HttpStatus.NOT_FOUND).build();
+				.errorMessage(tweetException.getTweetNotFound()).status(HttpStatus.NOT_FOUND).build();
 		return new ResponseEntity<ExceptionResponse>(exceptionResponse, HttpStatus.NOT_FOUND);
 	}
 

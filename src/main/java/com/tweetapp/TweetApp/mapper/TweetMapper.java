@@ -12,6 +12,7 @@ import com.tweetapp.TweetApp.domain.Tweet;
 import com.tweetapp.TweetApp.dto.tweet.TweetRequest;
 import com.tweetapp.TweetApp.dto.tweet.TweetResponse;
 import com.tweetapp.TweetApp.exception.InputFeildException;
+import com.tweetapp.TweetApp.exception.TweetNotFoundException;
 import com.tweetapp.TweetApp.service.TweetService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -53,10 +54,14 @@ public class TweetMapper {
 
 	public List<TweetResponse> getAllTweetsByUser(String username) {
 		log.info("inside getAllTweetsByUser method of TweetMapper");
-		List<TweetResponse> tweets = getAllTweets();
-		List<TweetResponse> tweetsByUser = tweets.stream()
-				.filter(tweetResponse -> username.equals(tweetResponse.getUsername())).collect(Collectors.toList());
-		return tweetsByUser;
+		List<Tweet> tweets = tweetService.getAllTweetsByUser(username);
+		List<TweetResponse> allTweetsResponse = tweets.stream().map(tweet -> {
+			TweetResponse tweetResponse = modelMapper.map(tweet, TweetResponse.class);
+			tweetResponse.setUsername(tweet.getUser().getLoginId());
+			return tweetResponse;
+		}).collect(Collectors.toList());
+		log.info("Converting Tweet List to TweetReponse List => {}",allTweetsResponse);
+		return allTweetsResponse;
 	}
 
 	public String updateTweet(String id, TweetRequest tweetRequest, BindingResult bindingResult) {

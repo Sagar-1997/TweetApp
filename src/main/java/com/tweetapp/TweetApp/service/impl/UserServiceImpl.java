@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> getUser(String username) {
+	public List<User> getUsers(String username) {
 		log.info("Inside getUser method in UserServiceImpl class");
 		List<User> users = userRepository.findAllByLoginIdContaining(username);
 		if (users.isEmpty() || users == null) {

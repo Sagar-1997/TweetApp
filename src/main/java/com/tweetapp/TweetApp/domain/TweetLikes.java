@@ -1,5 +1,6 @@
 package com.tweetapp.TweetApp.domain;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
@@ -22,9 +23,7 @@ public class TweetLikes {
 	@Id
 	@Setter(value = AccessLevel.NONE)
 	private String id;
-	private Date likeDate;
+	private LocalDateTime likeDate;
 	private String userName;
-	@JsonIgnore
-	private String tweetId;
 
 }

@@ -1,5 +1,6 @@
 package com.tweetapp.TweetApp.domain;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,7 +26,7 @@ public class Tweet {
 	private String tag;
 	@DBRef
 	private User user;
-	private Date postTime;
+	private LocalDateTime postTime;
 	@DBRef
 	private List<TweetLikes> likes = new ArrayList<TweetLikes>();
 	@DBRef

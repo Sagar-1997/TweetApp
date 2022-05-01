@@ -3,6 +3,7 @@ package com.tweetapp.TweetApp.mapper;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -52,7 +53,7 @@ public class TweetMapperTest {
 		tweetResponse = new TweetResponse();
 		tweetResponse.setId("123");
 		tweetResponse.setLikes(new ArrayList<>());
-		tweetResponse.setPostTime(new Date());
+		tweetResponse.setPostTime(LocalDateTime.now());
 		tweetResponse.setReplies(new ArrayList<>());
 		tweetResponse.setTag("tag");
 		tweetResponse.setTweetText("tweet text");
@@ -65,7 +66,7 @@ public class TweetMapperTest {
 		Tweet tweet = new Tweet();
 		tweet.setId("12345");
 		tweet.setLikes(new ArrayList<>());
-		tweet.setPostTime(new Date());
+		tweet.setPostTime(LocalDateTime.now());
 		tweet.setReplies(new ArrayList<>());
 		tweet.setTag("tag");
 		tweet.setTweetText("tweet text");
@@ -85,7 +86,7 @@ public class TweetMapperTest {
 		Tweet tweet = new Tweet();
 		tweet.setId("12345");
 		tweet.setLikes(new ArrayList<>());
-		tweet.setPostTime(new Date());
+		tweet.setPostTime(LocalDateTime.now());
 		tweet.setReplies(new ArrayList<>());
 		tweet.setTag("tag");
 		tweet.setTweetText("tweet text");
@@ -95,10 +96,31 @@ public class TweetMapperTest {
 		Mockito.when(modelMapper.map(tweet, TweetResponse.class)).thenReturn(tweetResponse);
 		Mockito.when(tweetService.getAllTweets()).thenReturn(alltweetEntity);
 		List<TweetResponse> actual = tweetMapper.getAllTweets();
-		System.out.println(actual);
 		assertEquals(alltweet, actual);
 	}
-
+	
+	@Test
+	public void getAllTweetsByUserTest() {
+		String username = "a@123";
+		ArrayList<TweetResponse> alltweet = new ArrayList<TweetResponse>();
+		User user = new User();
+		user.setLoginId("a@123");
+		alltweet.add(tweetResponse);
+		Tweet tweet = new Tweet();
+		tweet.setId("12345");
+		tweet.setLikes(new ArrayList<>());
+		tweet.setPostTime(LocalDateTime.now());
+		tweet.setReplies(new ArrayList<>());
+		tweet.setTag("tag");
+		tweet.setTweetText("tweet text");
+		tweet.setUser(user);
+		ArrayList<Tweet> alltweetEntity = new ArrayList<Tweet>();
+		alltweetEntity.add(tweet);
+		Mockito.when(modelMapper.map(tweet, TweetResponse.class)).thenReturn(tweetResponse);
+		Mockito.when(tweetService.getAllTweetsByUser(username)).thenReturn(alltweetEntity);
+		List<TweetResponse> actual = tweetMapper.getAllTweetsByUser(username);
+		assertEquals(alltweet, actual);
+	}
 	@Test
 	public void updateTweetTest() {
 		String tweetid = "12345";
