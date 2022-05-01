@@ -9,7 +9,7 @@ import com.tweetapp.TweetApp.domain.Tweet;
 import com.tweetapp.TweetApp.domain.User;
 
 @Repository
-public interface TweetRepository extends MongoRepository<Tweet, String>{
+public interface TweetRepository extends MongoRepository<Tweet, String> {
 
 	List<Tweet> findAllByUser(User user);
 }

@@ -10,6 +10,9 @@ import com.tweetapp.TweetApp.exception.UserNotFoundException;
 import com.tweetapp.TweetApp.repository.UserRepository;
 import com.tweetapp.TweetApp.service.UserService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -18,17 +21,21 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<User> getAllUsers() {
+		log.info("Inside getAllUsers method in UserServiceImpl class");
 		List<User> users = userRepository.findAll();
+		log.info("All Users => {}", users);
 		return users;
 	}
 
 	@Override
 	public List<User> getUser(String username) {
-	    List<User> users = userRepository.findAllByLoginIdContaining(username);
-	    if(users.isEmpty() || users==null)
-	    {
-	    	throw new UserNotFoundException("Not found any matching user");
-	    }
+		log.info("Inside getUser method in UserServiceImpl class");
+		List<User> users = userRepository.findAllByLoginIdContaining(username);
+		if (users.isEmpty() || users == null) {
+			log.info("Users with "+username+" is not found");
+			throw new UserNotFoundException("No matching user is found");
+		}
+		log.info("All users by username => {}", users);
 		return users;
 	}
 

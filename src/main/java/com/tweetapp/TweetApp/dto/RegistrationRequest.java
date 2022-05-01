@@ -19,7 +19,6 @@ public class RegistrationRequest {
 	private String password;
 	@NotBlank(message = "Confirm password not be blank or null")
 	private String confirmPassword;
-	@NotBlank(message = "contact not be blank or null")
-	@Pattern(regexp = "^[789]\\d{9}$",message = "Phone Number should we equal to 10 digits and starts with 7,8 or 9")
+	@Pattern(regexp = "^[789]\\d{9}$", message = "Phone Number should we equal to 10 digits and starts with 7,8 or 9")
 	private String contactNumber;
 }

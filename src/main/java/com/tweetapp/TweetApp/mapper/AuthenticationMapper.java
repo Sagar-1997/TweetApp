@@ -13,38 +13,41 @@ import com.tweetapp.TweetApp.dto.auth.AuthResponse;
 import com.tweetapp.TweetApp.exception.InputFeildException;
 import com.tweetapp.TweetApp.service.AuthenticationService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Component
 public class AuthenticationMapper {
 	@Autowired
 	private AuthenticationService authenticationService;
-	
+
 	private ModelMapper modelMapper;
-	
+
 	public AuthenticationMapper(ModelMapper mapper) {
-		this.modelMapper=mapper;
+		this.modelMapper = mapper;
 	}
-	
-	public String registerUser(RegistrationRequest registrationRequest,BindingResult bindingResult)
-	{
-		System.out.println(registrationRequest);
-		if(bindingResult.hasErrors())
-		{
+
+	public String registerUser(RegistrationRequest registrationRequest, BindingResult bindingResult) {
+		log.info("inside registerUser method of AuthenticationMapper");
+		if (bindingResult.hasErrors()) {
+			log.info("Inside Feild Exception");
 			throw new InputFeildException(bindingResult);
 		}
 		User userEntity = modelMapper.map(registrationRequest, User.class);
-		System.out.println(userEntity);
-		return authenticationService.registerUser(userEntity);
+		log.info("registrationRequest is converted to User =>{}",userEntity);
+		String registerUser = authenticationService.registerUser(userEntity);
+		return registerUser;
 	}
-	public AuthResponse login(AuthRequest request)
-	{
-		String token = authenticationService.login(request.getUsername(),request.getPassword());
-		AuthResponse response = new AuthResponse();
-		response.setToken(token);
-		response.setUsername(request.getUsername());
+
+	public AuthResponse login(AuthRequest request) {
+		log.info("inside login mwthod of AuthenticationMapper");
+		AuthResponse response = authenticationService.login(request.getUsername(), request.getPassword());
 		return response;
 	}
 
 	public String forgotPassword(String username, PasswordResetRequest passwordResetRequest) {
-		return authenticationService.forgotPassword(username,passwordResetRequest.getPassword(),passwordResetRequest.getConfirmPassword());
+		log.info("inside forgotPassword method of AuthenticationMapper");
+		return authenticationService.forgotPassword(username, passwordResetRequest.getPassword(),
+				passwordResetRequest.getConfirmPassword());
 	}
 }

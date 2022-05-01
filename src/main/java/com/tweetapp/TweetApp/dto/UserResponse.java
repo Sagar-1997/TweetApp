@@ -1,4 +1,4 @@
-package com.tweetapp.TweetApp.dto.user;
+package com.tweetapp.TweetApp.dto;
 
 import lombok.Data;
 

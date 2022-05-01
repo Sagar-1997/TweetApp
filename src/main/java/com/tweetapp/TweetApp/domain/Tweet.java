@@ -27,7 +27,7 @@ public class Tweet {
 	private User user;
 	private Date postTime;
 	@DBRef
-	private List<TweetLike> likes = new ArrayList<TweetLike>();
+	private List<TweetLikes> likes = new ArrayList<TweetLikes>();
 	@DBRef
-	private List<TweetReply> replies= new ArrayList<TweetReply>();
+	private List<TweetReply> replies = new ArrayList<TweetReply>();
 }

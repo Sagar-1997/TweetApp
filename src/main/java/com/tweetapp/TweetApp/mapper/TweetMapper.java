@@ -14,6 +14,9 @@ import com.tweetapp.TweetApp.dto.tweet.TweetResponse;
 import com.tweetapp.TweetApp.exception.InputFeildException;
 import com.tweetapp.TweetApp.service.TweetService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Component
 public class TweetMapper {
 	@Autowired
@@ -25,14 +28,18 @@ public class TweetMapper {
 	}
 
 	public String postTweet(String username, TweetRequest tweetRequest, BindingResult bindResult) {
+		log.info("inside postTweet method of TweetMapper");
 		if (bindResult.hasErrors()) {
+			log.info("Input Feild Exception");
 			throw new InputFeildException(bindResult);
 		}
 		Tweet tweet = modelMapper.map(tweetRequest, Tweet.class);
+		log.info("Converting TweetRequest to Tweet => {}",tweet);
 		return tweetService.postTweet(username, tweet);
 	}
 
 	public List<TweetResponse> getAllTweets() {
+		log.info("inside getAllTweets method of TweetMapper");
 		List<Tweet> allTweets = tweetService.getAllTweets();
 		List<TweetResponse> allTweetsResponse = allTweets.stream().map(tweet -> {
 			TweetResponse tweetResponse = modelMapper.map(tweet, TweetResponse.class);
@@ -40,10 +47,12 @@ public class TweetMapper {
 			return tweetResponse;
 
 		}).collect(Collectors.toList());
+		log.info("Converting Tweet List to TweetReponse List => {}",allTweetsResponse);
 		return allTweetsResponse;
 	}
 
 	public List<TweetResponse> getAllTweetsByUser(String username) {
+		log.info("inside getAllTweetsByUser method of TweetMapper");
 		List<TweetResponse> tweets = getAllTweets();
 		List<TweetResponse> tweetsByUser = tweets.stream()
 				.filter(tweetResponse -> username.equals(tweetResponse.getUsername())).collect(Collectors.toList());
@@ -51,27 +60,31 @@ public class TweetMapper {
 	}
 
 	public String updateTweet(String id, TweetRequest tweetRequest, BindingResult bindingResult) {
-
+		log.info("inside updateTweet method of TweetMapper");
 		if (bindingResult.hasErrors()) {
+			log.info("Input Feild Exception");
 			throw new InputFeildException(bindingResult);
 		}
-		return tweetService.updateTweet(id,tweetRequest);
+		return tweetService.updateTweet(id, tweetRequest);
 	}
 
 	public String deleteTweet(String id) {
+		log.info("inside deleteTweet method of TweetMapper");
 		return tweetService.deleteTweet(id);
 	}
 
-	public String addReply(String username, String id,TweetRequest tweetRequest, BindingResult bindingResult) {
-		if(bindingResult.hasErrors())
-		{
+	public String addReply(String username, String id, TweetRequest tweetRequest, BindingResult bindingResult) {
+		log.info("inside addReply method of TweetMapper");
+		if (bindingResult.hasErrors()) {
+			log.info("Input Feild Exception");
 			throw new InputFeildException(bindingResult);
 		}
-		return tweetService.addReply(username,id,tweetRequest);
+		return tweetService.addReply(username, id, tweetRequest);
 	}
 
 	public String addLike(String username, String id) {
-		return tweetService.addLike(username,id);
+		log.info("inside addLike method of TweetMapper");
+		return tweetService.addLike(username, id);
 	}
 
 }

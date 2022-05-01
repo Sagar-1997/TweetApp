@@ -12,16 +12,21 @@ import com.tweetapp.TweetApp.domain.User;
 import com.tweetapp.TweetApp.exception.UserNotFoundException;
 import com.tweetapp.TweetApp.repository.UserRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Component
-public class MyUserDetailsService implements UserDetailsService{
-    
+public class MyUserDetailsService implements UserDetailsService {
+
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = userRepository.findByLoginId(username).orElseThrow(()->new UserNotFoundException("User with "+username+" is not found"));
-		return new org.springframework.security.core.userdetails.User(username,user.getPassword(),new ArrayList<>());
+		log.info("inside loadUserByUsername method of MyUserDetailsService");
+		User user = userRepository.findByLoginId(username)
+				.orElseThrow(() -> new UserNotFoundException("User with " + username + " is not found"));
+		return new org.springframework.security.core.userdetails.User(username, user.getPassword(), new ArrayList<>());
 	}
 
 }

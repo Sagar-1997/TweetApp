@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.tweetapp.TweetApp.domain.TweetReply;
 
 @Repository
-public interface ReplyRepository extends MongoRepository<TweetReply, String>{
-    
-	//TweetReply findByUsername(String username);
+public interface ReplyRepository extends MongoRepository<TweetReply, String> {
+
 }

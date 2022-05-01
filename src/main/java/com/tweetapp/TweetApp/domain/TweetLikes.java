@@ -3,7 +3,6 @@ package com.tweetapp.TweetApp.domain;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -18,14 +17,14 @@ import lombok.Setter;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TweetLike {
-	
+public class TweetLikes {
+
 	@Id
 	@Setter(value = AccessLevel.NONE)
 	private String id;
-    private Date likeDate;
-    private String userName;
-    @JsonIgnore
+	private Date likeDate;
+	private String userName;
+	@JsonIgnore
 	private String tweetId;
-    
+
 }

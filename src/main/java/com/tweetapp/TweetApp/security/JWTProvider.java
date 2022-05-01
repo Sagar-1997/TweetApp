@@ -1,11 +1,11 @@
 package com.tweetapp.TweetApp.security;
 
-import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -13,14 +13,16 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
 public class JWTProvider {
 
-	private final String secretKey = Base64.getEncoder().encodeToString("secret".getBytes());
+	@Value("${jwt.secretkey}")
+	private String secretKey;
 
 	public String extractUsername(String token) throws ExpiredJwtException {
-
 		String userId = extractClaim(token, Claims::getSubject);
 		return userId;
 	}
@@ -54,7 +56,7 @@ public class JWTProvider {
 	private String createToken(Map<String, Object> claims, String subject) {
 		String token = Jwts.builder().setClaims(claims).setSubject(subject)
 				.setIssuedAt(new Date(System.currentTimeMillis()))
-				.setExpiration(new Date(System.currentTimeMillis() + 1000*60*60 ))// token for 60 mins
+				.setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))// token for 60 mins
 				.signWith(SignatureAlgorithm.HS256, secretKey).compact();
 		return token;
 	}
