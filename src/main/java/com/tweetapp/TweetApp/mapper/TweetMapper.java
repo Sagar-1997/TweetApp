@@ -12,7 +12,6 @@ import com.tweetapp.TweetApp.domain.Tweet;
 import com.tweetapp.TweetApp.dto.tweet.TweetRequest;
 import com.tweetapp.TweetApp.dto.tweet.TweetResponse;
 import com.tweetapp.TweetApp.exception.InputFeildException;
-import com.tweetapp.TweetApp.exception.TweetNotFoundException;
 import com.tweetapp.TweetApp.service.TweetService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +34,7 @@ public class TweetMapper {
 			throw new InputFeildException(bindResult);
 		}
 		Tweet tweet = modelMapper.map(tweetRequest, Tweet.class);
-		log.info("Converting TweetRequest to Tweet => {}",tweet);
+		log.info("Converting TweetRequest to Tweet => {}", tweet);
 		return tweetService.postTweet(username, tweet);
 	}
 
@@ -48,7 +47,7 @@ public class TweetMapper {
 			return tweetResponse;
 
 		}).collect(Collectors.toList());
-		log.info("Converting Tweet List to TweetReponse List => {}",allTweetsResponse);
+		log.info("Converting Tweet List to TweetReponse List => {}", allTweetsResponse);
 		return allTweetsResponse;
 	}
 
@@ -60,7 +59,7 @@ public class TweetMapper {
 			tweetResponse.setUsername(tweet.getUser().getLoginId());
 			return tweetResponse;
 		}).collect(Collectors.toList());
-		log.info("Converting Tweet List to TweetReponse List => {}",allTweetsResponse);
+		log.info("Converting Tweet List to TweetReponse List => {}", allTweetsResponse);
 		return allTweetsResponse;
 	}
 

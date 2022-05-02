@@ -1,7 +1,6 @@
 package com.tweetapp.TweetApp.dto.tweet;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 import com.tweetapp.TweetApp.domain.TweetLikes;

@@ -12,7 +12,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.tweetapp.TweetApp.security.JWTFilter;
 
@@ -28,7 +27,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	private PasswordEncoder passwordEncoder;
 
 	String[] permitAllApis = { "/api/v1.0/tweets/login", "/api/v1.0/tweets/register",
-			"/api/v1.0/tweets/{username}/forgot", "/**/*swagger*/**", "/v2/api-docs" ,"/actuator/**"};
+			"/api/v1.0/tweets/{username}/forgot", "/**/*swagger*/**", "/v2/api-docs", "/actuator/**" };
 
 	public SecurityConfiguration(PasswordEncoder passwordEncoder) {
 		this.passwordEncoder = passwordEncoder;

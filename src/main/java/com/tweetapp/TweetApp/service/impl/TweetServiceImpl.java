@@ -38,12 +38,12 @@ public class TweetServiceImpl implements TweetService {
 	public String postTweet(String username, Tweet tweet) {
 		log.info("Inside postTweet method of TweetServiceImpl");
 		User user = userRepository.findByLoginId(username)
-				.orElseThrow(() -> new UserNotFoundException("User with " + username + "is not found"));
+				.orElseThrow(() -> new UserNotFoundException("User with " + username + " is not found"));
 		tweet.setPostTime(LocalDateTime.now());
 		tweet.setUser(user);
 		Tweet insertedTweet = tweetRepository.insert(tweet);
 		log.info("New tweet value =>{}", insertedTweet);
-		return "Tweet is been posted!!";
+		return "Tweet is posted!!";
 	}
 
 	@Override
@@ -61,10 +61,10 @@ public class TweetServiceImpl implements TweetService {
 	@Override
 	public List<Tweet> getAllTweetsByUser(String username) {
 		log.info("Inside getAllTweetsByUser method of TweetServiceImpl");
-		User user = userRepository.findByLoginId(username).orElseThrow(() -> new UserNotFoundException("User with " + username + "is not found"));
+		User user = userRepository.findByLoginId(username)
+				.orElseThrow(() -> new UserNotFoundException("User with " + username + " is not found"));
 		List<Tweet> findAllByUser = tweetRepository.findAllByUser(user);
-		if(findAllByUser.size()==0 || findAllByUser==null)
-		{
+		if (findAllByUser.isEmpty() || findAllByUser == null) {
 			log.info("Tweet list is emply");
 			throw new TweetNotFoundException("No Tweets present for particular user");
 		}
@@ -81,7 +81,7 @@ public class TweetServiceImpl implements TweetService {
 		tweet.setTag(tweetRequest.getTag());
 		Tweet updatedTweet = tweetRepository.save(tweet);
 		log.info("Tweet after update => {}", updatedTweet);
-		return "post for updates !!";
+		return "tweet is updated !!";
 	}
 
 	@Override
@@ -91,7 +91,7 @@ public class TweetServiceImpl implements TweetService {
 				.orElseThrow(() -> new TweetNotFoundException("Tweet with give id " + id + " is not found"));
 		tweetRepository.delete(tweet);
 		log.info("Tweet is delete with id " + id);
-		return "post is deleted";
+		return "tweet is deleted !!";
 	}
 
 	@Override
@@ -152,5 +152,4 @@ public class TweetServiceImpl implements TweetService {
 		log.info("Tweet after adding like => {}", likeTweet);
 		return likeMessage;
 	}
-
 }

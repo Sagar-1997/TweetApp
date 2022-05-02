@@ -18,18 +18,17 @@ import com.tweetapp.TweetApp.mapper.UserMapper;
 
 @SpringBootTest
 public class UserControllerTest {
-	
+
 	@InjectMocks
 	private UserController userController;
-	
+
 	@Mock
 	private UserMapper userMapper;
-	
+
 	private UserResponse userReponse;
-	
+
 	@BeforeEach
-	public void setUp()
-	{
+	public void setUp() {
 		userReponse = new UserResponse();
 		userReponse.setContactNumber("8978526345");
 		userReponse.setEmail("a@gail.com");
@@ -37,19 +36,18 @@ public class UserControllerTest {
 		userReponse.setLastName("S");
 		userReponse.setLoginId("a@123");
 	}
+
 	@Test
-	public void getAllUsersTest()
-	{
+	public void getAllUsersTest() {
 		List<UserResponse> userList = new ArrayList<UserResponse>();
 		userList.add(userReponse);
 		Mockito.when(userMapper.getAllUsers()).thenReturn(userList);
 		ResponseEntity<List<UserResponse>> actual = userController.getAllUsers();
 		assertEquals(userList, actual.getBody());
 	}
-	
+
 	@Test
-	public void getUserTest()
-	{
+	public void getUserTest() {
 		List<UserResponse> userList = new ArrayList<UserResponse>();
 		userList.add(userReponse);
 		Mockito.when(userMapper.getUsers("a@123")).thenReturn(userList);

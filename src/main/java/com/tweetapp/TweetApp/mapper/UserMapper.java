@@ -30,7 +30,7 @@ public class UserMapper {
 		List<User> users = userService.getAllUsers();
 		List<UserResponse> usersReponse = users.stream().map(user -> modelMapper.map(user, UserResponse.class))
 				.collect(Collectors.toList());
-		log.info("Converting Users list to UserReponse List =>{}",usersReponse);
+		log.info("Converting Users list to UserReponse List =>{}", usersReponse);
 		return usersReponse;
 	}
 
@@ -39,7 +39,7 @@ public class UserMapper {
 		List<User> users = userService.getUsers(username);
 		List<UserResponse> usersReponse = users.stream().map(user -> modelMapper.map(user, UserResponse.class))
 				.collect(Collectors.toList());
-		log.info("Converting Users list to UserReponse List =>{}",usersReponse);
+		log.info("Converting Users list to UserReponse List =>{}", usersReponse);
 		return usersReponse;
 	}
 }

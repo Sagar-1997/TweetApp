@@ -18,6 +18,9 @@ import com.tweetapp.TweetApp.exception.UsernameException;
 import com.tweetapp.TweetApp.repository.UserRepository;
 import com.tweetapp.TweetApp.security.JWTProvider;
 import com.tweetapp.TweetApp.service.AuthenticationService;
+
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,17 +39,17 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	@Override
 	public String registerUser(User userEntity) {
 		log.info("Inside registerUser method of AuthenticationServiceImpl");
-		boolean userByEmail = userRepository.findByEmail(userEntity.getEmail()).isPresent();
-		boolean userByLoginId = userRepository.findByLoginId(userEntity.getLoginId()).isPresent();
+		Optional<User> userByEmail = userRepository.findByEmail(userEntity.getEmail());
+		Optional<User> userByLoginId = userRepository.findByLoginId(userEntity.getLoginId());
 		if (!userEntity.getPassword().equals(userEntity.getConfirmPassword())) {
 			log.info("Password do not match");
 			throw new PasswordException("Password do not match");
 		}
-		if (userByEmail) {
+		if (userByEmail.isPresent()) {
 			log.info("Email is already present");
 			throw new EmailException("Email already present");
 		}
-		if (userByLoginId) {
+		if (userByLoginId.isPresent()) {
 			log.info("Username is already present");
 			throw new UsernameException("Username already present");
 		}
@@ -73,7 +76,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		UserDetails user = (org.springframework.security.core.userdetails.User) authenticate.getPrincipal();
 
 		String generateToken = jwtProvider.generateToken(user);
-		reponse.setUsername(user.getUsername());
+		reponse.setUsername(username);
 		reponse.setExpirationTime(jwtProvider.extractExpiration(generateToken));
 		reponse.setToken(generateToken);
 		log.info("Login is successfull and token is genrated");

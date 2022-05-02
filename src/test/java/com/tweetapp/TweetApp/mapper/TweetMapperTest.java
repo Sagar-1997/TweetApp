@@ -1,11 +1,9 @@
 package com.tweetapp.TweetApp.mapper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -22,7 +20,6 @@ import com.tweetapp.TweetApp.domain.Tweet;
 import com.tweetapp.TweetApp.domain.User;
 import com.tweetapp.TweetApp.dto.tweet.TweetRequest;
 import com.tweetapp.TweetApp.dto.tweet.TweetResponse;
-import com.tweetapp.TweetApp.exception.InputFeildException;
 import com.tweetapp.TweetApp.service.TweetService;
 
 @SpringBootTest
@@ -98,7 +95,7 @@ public class TweetMapperTest {
 		List<TweetResponse> actual = tweetMapper.getAllTweets();
 		assertEquals(alltweet, actual);
 	}
-	
+
 	@Test
 	public void getAllTweetsByUserTest() {
 		String username = "a@123";
@@ -121,6 +118,7 @@ public class TweetMapperTest {
 		List<TweetResponse> actual = tweetMapper.getAllTweetsByUser(username);
 		assertEquals(alltweet, actual);
 	}
+
 	@Test
 	public void updateTweetTest() {
 		String tweetid = "12345";
@@ -136,21 +134,20 @@ public class TweetMapperTest {
 		String actual = tweetMapper.deleteTweet(tweetId);
 		assertEquals("Deleted", actual);
 	}
-	
+
 	@Test
 	public void addReplyTest() {
-		String tweetId="12345";
-		String username="A@123";
+		String tweetId = "12345";
+		String username = "A@123";
 		Mockito.when(tweetService.addReply(username, tweetId, tweetRequest)).thenReturn("Reply Added");
 		String actual = tweetMapper.addReply(username, tweetId, tweetRequest, bindResult);
 		assertEquals("Reply Added", actual);
 	}
-	
+
 	@Test
-	public void addLikeTest()
-	{
-		String tweetId ="12345";
-		String username="a@123";
+	public void addLikeTest() {
+		String tweetId = "12345";
+		String username = "a@123";
 		Mockito.when(tweetService.addLike(username, tweetId)).thenReturn("Like Added");
 		String actual = tweetMapper.addLike(username, tweetId);
 		assertEquals("Like Added", actual);

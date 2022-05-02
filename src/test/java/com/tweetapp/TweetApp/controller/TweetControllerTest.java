@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -30,7 +29,7 @@ public class TweetControllerTest {
 	private TweetMapper tweetMapper;
 	@Mock
 	private BindingResult bindResult;
-	
+
 	TweetRequest tweetRequest;
 	TweetResponse tweetResponse;
 
@@ -57,51 +56,48 @@ public class TweetControllerTest {
 		ResponseEntity<List<TweetResponse>> actual = tweetController.getAllTweets();
 		assertEquals(allTweet, actual.getBody());
 	}
-	
+
 	@Test
 	public void getAllTweetsByUserTest() {
-		String username="a@123";
+		String username = "a@123";
 		List<TweetResponse> allTweet = new ArrayList<TweetResponse>();
 		allTweet.add(tweetResponse);
 		Mockito.when(tweetMapper.getAllTweetsByUser(username)).thenReturn(allTweet);
 		ResponseEntity<List<TweetResponse>> actual = tweetController.getAllTweetsByUser(username);
 		assertEquals(allTweet, actual.getBody());
 	}
+
 	@Test
-	public void postTweetTest()
-	{
-		String username="a@123";
+	public void postTweetTest() {
+		String username = "a@123";
 		Mockito.when(tweetMapper.postTweet(username, tweetRequest, bindResult)).thenReturn("tweet posted");
 		ResponseEntity<String> actual = tweetController.postTweet(username, tweetRequest, bindResult);
 		assertEquals("tweet posted", actual.getBody());
 	}
+
 	@Test
-	public void addReplyTest()
-	{
+	public void addReplyTest() {
 		Mockito.when(tweetMapper.addReply("a@123", "928376", tweetRequest, bindResult)).thenReturn("reply added");
 		ResponseEntity<String> actual = tweetController.addReply("a@123", "928376", tweetRequest, bindResult);
 		assertEquals("reply added", actual.getBody());
 	}
-	
+
 	@Test
-	public void updateTweetTest()
-	{
-		Mockito.when(tweetMapper.updateTweet( "928376", tweetRequest, bindResult)).thenReturn("Tweet Updated");
+	public void updateTweetTest() {
+		Mockito.when(tweetMapper.updateTweet("928376", tweetRequest, bindResult)).thenReturn("Tweet Updated");
 		ResponseEntity<String> actual = tweetController.updateTweet("928376", tweetRequest, bindResult);
 		assertEquals("Tweet Updated", actual.getBody());
 	}
-	
+
 	@Test
-	public void addLikeTest()
-	{
+	public void addLikeTest() {
 		Mockito.when(tweetMapper.addLike("a@123", "928376")).thenReturn("like added");
 		ResponseEntity<String> actual = tweetController.addLike("a@123", "928376");
 		assertEquals("like added", actual.getBody());
 	}
-	
+
 	@Test
-	public void deleteTweet()
-	{
+	public void deleteTweet() {
 		Mockito.when(tweetMapper.deleteTweet("12345")).thenReturn("tweet delete");
 		ResponseEntity<String> actual = tweetController.deleteTweet("12345");
 		assertEquals("tweet delete", actual.getBody());

@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.tweetapp.TweetApp.domain.Tweet;
 import com.tweetapp.TweetApp.dto.tweet.TweetRequest;
-import com.tweetapp.TweetApp.dto.tweet.TweetResponse;
 
 public interface TweetService {
 	public String postTweet(String username, Tweet tweet);

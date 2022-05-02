@@ -34,7 +34,7 @@ public class AuthenticationMapper {
 			throw new InputFeildException(bindingResult);
 		}
 		User userEntity = modelMapper.map(registrationRequest, User.class);
-		log.info("registrationRequest is converted to User =>{}",userEntity);
+		log.info("registrationRequest is converted to User =>{}", userEntity);
 		String registerUser = authenticationService.registerUser(userEntity);
 		return registerUser;
 	}

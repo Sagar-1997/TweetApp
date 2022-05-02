@@ -1,5 +1,7 @@
 package com.tweetapp.TweetApp.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,15 +14,11 @@ import com.tweetapp.TweetApp.dto.auth.AuthRequest;
 import com.tweetapp.TweetApp.dto.auth.AuthResponse;
 import com.tweetapp.TweetApp.mapper.AuthenticationMapper;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-
-//@Slf4j
 @RestController
 @RequestMapping("/api/v1.0/tweets")
 public class AuthenticationController {
-	Logger log=LoggerFactory.getLogger(AuthenticationController.class);
+
+	private Logger log = LoggerFactory.getLogger(AuthenticationController.class);
 	private AuthenticationMapper authMapper;
 
 	public AuthenticationController(AuthenticationMapper mapper) {

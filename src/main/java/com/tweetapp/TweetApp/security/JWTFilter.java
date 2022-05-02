@@ -31,16 +31,17 @@ public class JWTFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		if (!request.getServletPath().equals("/login")
-				&& !request.getServletPath().equals("/register") && !request.getServletPath().equals("/{username}/forgot")) {
+		if (!request.getServletPath().equals("/api/v1.0/tweets/login")
+				&& !request.getServletPath().equals("/api/v1.0/tweets/register")
+				&& !request.getServletPath().equals("/api/v1.0/tweets/{username}/forgot")) {
 			String authHeader = request.getHeader("Authorization");
 			if (authHeader != null && authHeader.startsWith("Bearer ")) {
-				log.info("Authorization header => {}",authHeader);
+				log.info("Authorization header => {}", authHeader);
 				try {
 					String token = authHeader.substring(7);
-					log.info("Jwt Token => {}",token);
+					log.info("Jwt Token => {}", token);
 					String username = jwtProvider.extractUsername(token);
-					log.info("Username => {} ",username);
+					log.info("Username => {} ", username);
 					UserDetails details = userDetailsService.loadUserByUsername(username);
 					if (jwtProvider.validateToken(token, details)) {
 						UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(

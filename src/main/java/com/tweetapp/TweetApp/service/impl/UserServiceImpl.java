@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
 		log.info("Inside getUser method in UserServiceImpl class");
 		List<User> users = userRepository.findAllByLoginIdContaining(username);
 		if (users.isEmpty() || users == null) {
-			log.info("Users with "+username+" is not found");
+			log.info("Users with " + username + " is not found");
 			throw new UserNotFoundException("No matching user is found");
 		}
 		log.info("All users by username => {}", users);

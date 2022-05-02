@@ -79,15 +79,15 @@ public class AuthenticationMapperTest {
 		AuthResponse actual = authMapper.login(request);
 		assertEquals(response, actual);
 	}
-	
+
 	@Test
-	public void forgotPasswordTest()
-	{
+	public void forgotPasswordTest() {
 		String username = "a@123";
 		PasswordResetRequest request = new PasswordResetRequest();
 		request.setConfirmPassword("123");
 		request.setPassword("123");
-		Mockito.when(authService.forgotPassword(username, request.getPassword(), request.getConfirmPassword())).thenReturn("password change");
+		Mockito.when(authService.forgotPassword(username, request.getPassword(), request.getConfirmPassword()))
+				.thenReturn("password change");
 		String actual = authMapper.forgotPassword(username, request);
 		assertEquals("password change", actual);
 	}
